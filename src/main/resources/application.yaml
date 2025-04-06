@@ -1,0 +1,7 @@
+app:
+  telegram-token: test-token
+
+spring:
+  application:
+    name: Unicef player finder
+
