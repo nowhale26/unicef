@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS tg_user (
+    id BIGSERIAL PRIMARY KEY,
+    tg_chat_id BIGINT UNIQUE NOT NULL
+);
