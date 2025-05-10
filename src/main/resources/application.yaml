@@ -1,5 +1,6 @@
 app:
   telegram-token: test-token
+  vk-token: test-token
 
 spring:
   application:

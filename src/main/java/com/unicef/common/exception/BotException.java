@@ -1,4 +1,4 @@
-package com.unicef.common;
+package com.unicef.common.exception;
 
 import lombok.Getter;
 import lombok.Setter;
