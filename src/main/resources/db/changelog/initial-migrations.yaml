@@ -1,3 +1,7 @@
 databaseChangeLog:
   - include:
       file: db/changelog/changesets/create-tg-user-table.sql
+  - include:
+      file: db/changelog/changesets/create-player-table.sql
+  - include:
+      file: db/changelog/changesets/create-vk-user-group-table.sql

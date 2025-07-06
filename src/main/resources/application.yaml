@@ -1,6 +1,8 @@
 app:
   telegram-token: test-token
   vk-token: test-token
+  min-year: 2006
+  max-year: 2008
 
 spring:
   application:

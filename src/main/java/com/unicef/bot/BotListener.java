@@ -11,6 +11,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,20 +62,24 @@ public class BotListener {
     }
 
     protected int handleUpdates(List<Update> updates) {
-        for (var update : updates) {
-            String text = update.message().text();
-            Long tgChatId = update.message().chat().id();
-            if (text.startsWith("/")) {
-                String commandName = text.split("\\s+")[0];
-                if (commands.containsKey(commandName)) {
-                    Command command = commands.get(commandName);
-                    command.execute(update);
+        try{
+            for (var update : updates) {
+                String text = update.message().text();
+                Long tgChatId = update.message().chat().id();
+                if (text.startsWith("/")) {
+                    String commandName = text.split("\\s+")[0];
+                    if (commands.containsKey(commandName)) {
+                        Command command = commands.get(commandName);
+                        command.execute(update);
+                    } else {
+                        bot.execute(new SendMessage(tgChatId, UNKNOWN_COMMAND));
+                    }
                 } else {
-                    bot.execute(new SendMessage(tgChatId, UNKNOWN_COMMAND));
+                    bot.execute(new SendMessage(tgChatId, USE_COMMAND));
                 }
-            } else {
-                bot.execute(new SendMessage(tgChatId, USE_COMMAND));
             }
+        } catch (Exception e) {
+            log.error(Arrays.toString(e.getStackTrace()));
         }
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }

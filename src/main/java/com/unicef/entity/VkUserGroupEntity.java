@@ -19,10 +19,11 @@ public class VkUserGroupEntity {
     @Column(name = "is_player")
     private Boolean isPlayer;
 
-    @Column(name = "vk_id")
+    @Column(name = "vk_user_id")
     private Long vkId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "vk_id", referencedColumnName = "vk_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "player_id", referencedColumnName = "vk_id")
     private PlayerEntity player;
+
 }
