@@ -80,6 +80,7 @@ public class BotListener {
             }
         } catch (Exception e) {
             log.error(Arrays.toString(e.getStackTrace()));
+            log.error(e.getMessage());
         }
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }

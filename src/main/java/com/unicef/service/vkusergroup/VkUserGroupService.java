@@ -2,6 +2,7 @@ package com.unicef.service.vkusergroup;
 
 import com.unicef.entity.PlayerEntity;
 import com.unicef.entity.VkUserGroupEntity;
+import com.unicef.externalapi.vk.model.VkUser;
 import com.unicef.service.player.PlayerService;
 import com.unicef.service.player.model.Player;
 import com.unicef.service.vkusergroup.model.VkUserGroup;
@@ -43,5 +44,11 @@ public class VkUserGroupService {
 
         vkUserGroupRepository.save(entity);
         return entity;
+    }
+
+    public boolean existsUserWithThisVkId(VkUser vkUser){
+        Optional<VkUserGroupEntity> existingEntity = vkUserGroupRepository.findByVkId(
+                vkUser.getId());
+        return existingEntity.isPresent();
     }
 }
