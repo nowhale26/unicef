@@ -15,7 +15,7 @@ public class CheckGroupCommand extends Command {
     private final VkService vkService;
 
     public CheckGroupCommand(VkService vkService) {
-        super("/checkGroup", "Изначальная проверка пользователей группы");
+        super("/checkgroup", "Изначальная проверка пользователей группы");
         this.vkService = vkService;
     }
 

@@ -29,13 +29,13 @@ public class BotListener {
 
     private final Map<String, Command> commands = new HashMap<>();
 
-    public BotListener(TelegramBot bot, List<Command> commands) {
-        botCommandsForRegistration = new BotCommand[commands.size()];
-        for (int i =0;i<commands.size();i++) {
-            Command command = commands.get(i);
+    public BotListener(TelegramBot bot, List<Command> commandList) {
+        botCommandsForRegistration = new BotCommand[commandList.size()];
+        for (int i =0;i<commandList.size();i++) {
+            Command command = commandList.get(i);
             String name = command.getName();
             String description = command.getDescription();
-            this.commands.put(name, command);
+            commands.put(name, command);
             botCommandsForRegistration[i] = new BotCommand(name, description);
         }
         this.bot = bot;
@@ -43,7 +43,16 @@ public class BotListener {
 
     @PostConstruct
     public void init() {
-        bot.execute(new SetMyCommands(botCommandsForRegistration));
+        log.info("Registering {} commands", botCommandsForRegistration.length);
+        for (BotCommand cmd : botCommandsForRegistration) {
+            log.info("Registering command: {} - {}", cmd.command(), cmd.description());
+        }
+
+        var response = bot.execute(new SetMyCommands(botCommandsForRegistration));
+        log.info("SetMyCommands response: {}", response.isOk());
+        if (!response.isOk()) {
+            log.error("Failed to set commands: {}", response.description());
+        }
 
         bot.setUpdatesListener(
                 updates -> {
