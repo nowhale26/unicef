@@ -2,21 +2,18 @@ package com.unicef.bot.command;
 
 import com.pengrad.telegrambot.model.Update;
 import com.unicef.common.validator.BachelorPlayerValidator;
-import com.unicef.externalapi.mosff.MosffService;
 import com.unicef.externalapi.mosff.model.MosffPlayer;
+import com.unicef.externalapi.ufl.UflService;
 import com.unicef.externalapi.vk.VkService;
-import com.unicef.externalapi.vk.model.VkUser;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
-public class CheckGroupCommand extends Command {
+public class CheckUserCommand extends Command {
 
     private final VkService vkService;
 
-    public CheckGroupCommand(VkService vkService) {
-        super("/checkgroup", "Изначальная проверка пользователей группы");
+    public CheckUserCommand(VkService vkService) {
+        super("/checkuser", "Проверка друзей пользователя");
         this.vkService = vkService;
     }
 
@@ -25,8 +22,8 @@ public class CheckGroupCommand extends Command {
         Long tgChatId = update.message().chat().id();
         String[] updateMessage = update.message().text().split("\\s+");
         if (updateMessage.length == 2) {
-            String groupName = updateMessage[1];
-            vkService.checkGroup(groupName, true, tgChatId, true, BachelorPlayerValidator.INSTANCE);
+            String userVkId = updateMessage[1];
+            vkService.checkGroup(userVkId, true, tgChatId, false, BachelorPlayerValidator.INSTANCE);
         }
     }
 }

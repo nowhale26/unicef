@@ -63,6 +63,8 @@ public class BotListener {
                         // got bad response from telegram
                         log.error("Error code: {}", error.response().errorCode());
                         log.error("Error description: {}", error.response().description());
+                        log.error(error.response().toString());
+                        error.printStackTrace();
                     } else {
                         // probably network error
                         error.printStackTrace();

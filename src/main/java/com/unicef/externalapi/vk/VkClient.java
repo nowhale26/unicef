@@ -3,8 +3,6 @@ package com.unicef.externalapi.vk;
 import com.unicef.ApplicationConfig;
 import com.unicef.common.ErrorApplier;
 import com.unicef.externalapi.vk.model.VkAnswer;
-import com.unicef.externalapi.vk.model.VkResponse;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -15,22 +13,29 @@ public class VkClient {
     private final WebClient vkWebClient;
 
     private final String vkToken;
-    private static final String getMembersUrl = "/groups.getMembers";
+
 
     public VkClient(WebClient vkWebClient, ApplicationConfig config) {
         this.vkWebClient = vkWebClient;
         this.vkToken = config.vkToken();
     }
 
-    public VkAnswer getMembers(int offset, String groupId){
+    public VkAnswer getVkMembers(int offset, String groupId, String methodUrl){
+        String entityIdName;
+        if(methodUrl.equals("/friends.get")){
+            entityIdName = "user_id";
+        } else{
+            entityIdName = "group_id";
+        }
+        String finalEntityIdName = entityIdName;
         return vkWebClient
                 .get()
                 .uri(uriBuilder -> uriBuilder
-                        .path(getMembersUrl)
+                        .path(methodUrl)
                         .queryParam("access_token", vkToken)
-                        .queryParam("group_id",groupId)
+                        .queryParam(finalEntityIdName,groupId)
                         .queryParam("offset",offset)
-                        .queryParam("fields","sex")
+                        .queryParam("fields","bdate,sex,universities")
                         .queryParam("lang",0)
                         .queryParam("v","5.199")
                         .build())

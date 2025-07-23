@@ -41,7 +41,8 @@ public class MosffService {
                     player.setPosition(infoElements.get(0).text());
                 }
                 if (infoElements.size() > 1) {
-                    player.setDateOfBirth(infoElements.get(1).text());
+                    String inputDate = infoElements.get(1).text();
+                    player.setDateOfBirth(convertDateFormat(inputDate));
                 }
 
                 players.add(player);
@@ -52,15 +53,29 @@ public class MosffService {
 
             for (var player : players) {
                 String[] nameParts = player.getName().split(" ");
-                String playerNameSurname = nameParts[0] + " " + nameParts[1];
+                String playerSurnameName = nameParts[0] + " " + nameParts[1];
                 int birthYear = Integer.parseInt(player.getDateOfBirth().split("\\.")[2]);
-                if (surnameName.equalsIgnoreCase(playerNameSurname) && minYear<= birthYear && birthYear<=maxYear){
-                    player.setDateOfBirth(Integer.toString(birthYear));
+                if (surnameName.equalsIgnoreCase(playerSurnameName) && minYear<= birthYear && birthYear<=maxYear){
                     return player;
                 }
             }
             return null;
         }
         return null;
+    }
+
+    public static String convertDateFormat(String inputDate){
+        String[] parts = inputDate.trim().split("\\.");
+
+        String day = parts[0];
+        if(day.charAt(0)=='0'){
+            day = day.substring(1);
+        }
+        String month = parts[1];
+        if(month.charAt(0)=='0'){
+            month = month.substring(1);
+        }
+        String year = parts[2];
+        return String.format("%s.%s.%s", day, month, year);
     }
 }

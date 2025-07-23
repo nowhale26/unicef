@@ -3,6 +3,8 @@ package com.unicef.externalapi.vk.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class VkUser {
     @JsonProperty("id")
@@ -16,4 +18,10 @@ public class VkUser {
 
     @JsonProperty("sex")
     private Integer sex;
+
+    @JsonProperty("bdate")
+    private String bdate;
+
+    @JsonProperty("universities")
+    private List<University> universities;
 }

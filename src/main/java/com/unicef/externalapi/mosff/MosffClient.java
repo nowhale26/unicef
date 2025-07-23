@@ -12,7 +12,6 @@ public class MosffClient {
 
     private final RestTemplate restTemplate;
 
-
     public MosffClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
