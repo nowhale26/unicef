@@ -110,7 +110,8 @@ public class HseClient {
         try {
             URI uri = UriComponentsBuilder.fromHttpUrl(SEARCH_URL)
                     .queryParam("q", name)
-                    .build(true)
+                    .build()
+                    .encode()
                     .toUri();
 
             HttpHeaders headers = new HttpHeaders();
