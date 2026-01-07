@@ -1,6 +1,10 @@
 app:
   telegram-token: test-token
   vk-token: test-token
+  hse-client-id: app-x-android
+  hse-redirect-uri: ru.hse.hseappx://saml.hse.ru/authorize_callback
+  hse-login: test-login
+  hse-password: test-password
   min-year: 2006
   max-year: 2008
 
