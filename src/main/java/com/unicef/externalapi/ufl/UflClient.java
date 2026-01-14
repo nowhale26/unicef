@@ -43,4 +43,27 @@ public class UflClient {
 
         return Jsoup.parse(profileHtml);
     }
+
+    public Document searchAllPlayers(){
+        String searchUrl = "https://yflrussia.ru/participants/players?season_id=all";
+        String searchHtml = restTemplate.getForObject(searchUrl, String.class);
+        if (searchHtml == null) {
+            return null;
+        }
+
+        return Jsoup.parse(searchHtml);
+    }
+
+    public Document searchAllPlayers(int page){
+        String searchUrl = String.format(
+                "https://yflrussia.ru/participants/players?season_id=all&page=%d",
+                page
+        );
+        String searchHtml = restTemplate.getForObject(searchUrl, String.class);
+        if (searchHtml == null) {
+            return null;
+        }
+
+        return Jsoup.parse(searchHtml);
+    }
 }
